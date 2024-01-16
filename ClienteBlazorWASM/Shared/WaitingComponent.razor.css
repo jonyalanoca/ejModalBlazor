@@ -1,0 +1,54 @@
+﻿.loading__modal{
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    background-color:white;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+}
+.rotating-svg {
+    animation: rotateAnimation 5s linear infinite;
+    transform-origin: center;
+}
+.loading__mensage{
+    position:relative;
+}
+.loading__mensage::after {
+    content: "";
+
+    animation: loadingDots 1s infinite;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+}
+
+@keyframes loadingDots {
+    0%, 20% {
+        content: ".";
+    }
+
+    40% {
+        content: "..";
+    }
+
+    60% {
+        content: "...";
+    }
+
+    80%, 100% {
+        content: "";
+    }
+}
+@keyframes rotateAnimation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

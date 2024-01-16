@@ -1,0 +1,54 @@
+.loading__modal[b-kx1u2l9s2d]{
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    background-color:white;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+}
+.rotating-svg[b-kx1u2l9s2d] {
+    animation: rotateAnimation-b-kx1u2l9s2d 5s linear infinite;
+    transform-origin: center;
+}
+.loading__mensage[b-kx1u2l9s2d]{
+    position:relative;
+}
+.loading__mensage[b-kx1u2l9s2d]::after {
+    content: "";
+
+    animation: loadingDots-b-kx1u2l9s2d 1s infinite;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+}
+
+@keyframes loadingDots-b-kx1u2l9s2d {
+    0%, 20% {
+        content: ".";
+    }
+
+    40% {
+        content: "..";
+    }
+
+    60% {
+        content: "...";
+    }
+
+    80%, 100% {
+        content: "";
+    }
+}
+@keyframes rotateAnimation-b-kx1u2l9s2d {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,30 @@
+﻿@page "/counter"
+
+<PageTitle>Counter</PageTitle>
+@if(estado)
+{
+    <WaitingComponent Mensaje="@mensaje"></WaitingComponent>
+}
+else
+{
+    <h1>Counter</h1>
+
+    <p role="status">Current count: @currentCount</p>
+
+    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+}
+
+
+
+
+@code {
+    private int currentCount = 0;
+    private bool estado=false;
+    private string mensaje;
+    private void IncrementCount()
+    {
+        currentCount++;
+        estado = true;
+        mensaje = "Esperando listas";
+    }
+}

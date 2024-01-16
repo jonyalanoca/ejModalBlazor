@@ -1,0 +1,101 @@
+﻿@page "/crear-post"
+@using ClienteBlazorWASM.Modelos;
+@using ClienteBlazorWASM.Servicios.IServicio;
+@inject IJSRuntime jsRuntime;
+@inject IPostServicio postsServicio;
+@inject NavigationManager navigationManager
+
+<h1 class="text-center">
+    Lista de Posts
+</h1>
+<div class="card">
+    <div class="row">
+        <div class="col-7">
+            <h4 class="card-title text-dark ">Nuevo Post</h4>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button id="boton-cerrar" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="">
+    <EditForm Model="CrearPost" OnValidSubmit="@(()=>MenejadorOnCrearPost())">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+        <div class="container">
+            <div class="form-group">
+                <div class="col-2">
+                    <label>Título</label>
+                </div>
+                <div class="col-6">
+                    <InputText @bind-Value="CrearPost.Titulo" class="form-control" placeholder="Ingresa el título"></InputText>
+                    <ValidationMessage For="@(()=>CrearPost.Titulo)"></ValidationMessage>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-2">
+                    <label>Descripción</label>
+                </div>
+                <div class="col-6">
+                    <InputText @bind-Value="CrearPost.Descripcion" class="form-control" placeholder="Ingresa la decripción"></InputText>
+                    <ValidationMessage For="@(()=>CrearPost.Descripcion)"></ValidationMessage>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-2">
+                    <label>Etiquetas</label>
+                </div>
+                <div class="col-6">
+                    <InputText @bind-Value="CrearPost.Etiquetas" class="form-control" placeholder="Ingrese las etiquetas separadas por coma"></InputText>
+                    <ValidationMessage For="@(()=>CrearPost.Etiquetas)"></ValidationMessage>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-2">
+                    <h4>Imagen Post</h4>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-success"><i class="bi bi-gear-fill"></i>&nbsp; Guardar</button>
+                    </div>
+                    <div class="col-4">
+                        <NavLink href="posts" class="btn btn-secondary"><i class="bi bi-arrow-left-circle-fill"></i>&nbsp; Volver</NavLink>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </EditForm>
+</div>
+
+@code {
+    private Post CrearPost { get; set; } = new Post();
+    private async Task MenejadorOnCrearPost()
+    {
+        var crearPost = await postsServicio.Crear(CrearPost);
+        await jsRuntime.ToastrSuccess("Post creado correctamente");
+        navigationManager.NavigateTo("posts");
+    }
+}

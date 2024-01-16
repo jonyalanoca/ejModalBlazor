@@ -1,0 +1,22 @@
+﻿@page "/"
+@inject IJSRuntime JSRuntime
+<PageTitle>Index</PageTitle>
+
+<h1 class="modal-dialog modal-fullscreen-xxl-down">Hello, world!</h1>
+
+<div class="row mt-4">
+    <divc class="col-4">
+        <button class="btn btn-success" @onclick="DemoSuccess">TostSuccess</button>
+        <button class="btn btn-success" @onclick="DemoError">TostSuccess</button>
+    </divc>
+</div>
+@code{
+    private async Task DemoSuccess()
+    {
+        await JSRuntime.ToastrSuccess("Tarea Completada");
+    }
+    private async Task DemoError()
+    {
+        await JSRuntime.ToastrError("Tarea Imconpleta");
+    }
+}
